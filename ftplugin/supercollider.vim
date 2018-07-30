@@ -167,7 +167,7 @@ augroup sc
     au BufWrite <buffer> call SCPadPostChar(',')
 
     " Move all comma dileneated items to newlines
-    au BufWrite <buffer> %s/\w\zs,\ze./,\r/ge
+    "au BufWrite <buffer> %s/\w\zs,\ze./,\r/ge
 
     " Add space after colon
     au BufWrite <buffer> %s/\v\:\ze\S/: /ge
