@@ -6,5 +6,5 @@
 Using regex to do simple autoformatting in SuperCollider code in Vim, mainly
 make padding around operators nice and consistent
 
-Install using pathogin: `cd ~/.vim/bundle && git clone http://thisurl.com`
+Install using pathogin: `cd ~/.vim/bundle && git clone https://github.com/datamads/SCFormatter`
 
