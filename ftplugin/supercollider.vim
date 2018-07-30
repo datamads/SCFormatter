@@ -120,6 +120,7 @@ augroup sc
     " Restore comments
     au BufWrite <buffer> call SCRestorePad('\/\s\*', '\/\*')
     au BufWrite <buffer> call SCRestorePad('\*\s\/', '\*\/')
+    au BufWrite <buffer> call SCRestorePad('\/\s\/', '\/\/')
 
     " Restore **
     au BufWrite <buffer> call SCRestorePad('\*\s\*', '\*\*')
@@ -166,9 +167,7 @@ augroup sc
     au BufWrite <buffer> call SCPadPostChar(',')
 
     " Move all comma dileneated items to newlines
-    " au BufWrite <buffer> %s/\v\s\zs,\ze\S/,\r/g
-    " au BufWrite <buffer> %s/\v\s*,\s\ze/,\r/ge
-    " au BufWrite <buffer> %s/\v\w\zs,\ze\w/,\r/ge
+    au BufWrite <buffer> %s/\w\zs,\ze./,\r/ge
 
     " Add space after colon
     au BufWrite <buffer> %s/\v\:\ze\S/: /ge
@@ -177,7 +176,7 @@ augroup sc
     " au BufWrite <buffer> %s/\v,\S*\zs\\/\r\\/ge
 
     " Indent
-    au BufWrite <buffer> execute "normal gg=G"
+    " au BufWrite <buffer> execute "normal gg=G"
 
     "-----------
     " OTHER FORMATTING END
