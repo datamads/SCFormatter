@@ -10,24 +10,18 @@
 " make sure there's a space between the end of a word and the char sign on assignment
 fun! SCPadPreChar(char)
     " au BufWrite <buffer> silent! %s/\v\S\zs\=/ =/gg
-    execute '%s/\v\S\zs\' . a:char . '/ ' . a:char . '/ge'
-endfun
-
-fun! SCPadPreCharLoop(charlist)
-    for i in a:charlist
-        call SCPadPreChar(i)
-    endfor
+    silent! '%s/\v\S\zs\' . a:char . '/ ' . a:char . '/ge'
 endfun
 
 " make sure there's a space between the beginning of a word following the char sign on assignment
 fun! SCPadPostChar(char)
     " au BufWrite <buffer> silent! %s/\v\=\ze\S/= /gg
-    execute '%s/\v\' . a:char . '\ze\S/' . a:char . ' /ge'
+    silent! '%s/\v\' . a:char . '\ze\S/' . a:char . ' /ge'
 endfun
 
 " Useful when the padding function makes unnecessary padding
 fun! SCRestorePad(from, to)
-    execute '%s/\v' . a:from . '/' . a:to . '/ge'
+    silent! '%s/\v' . a:from . '/' . a:to . '/ge'
 endfun
 
 " SUPERCOLLIDER AUTO FORMATTING
@@ -114,8 +108,9 @@ augroup sc
     au BufWrite <buffer> call SCRestorePad('\!\s\=\=', '!==')
 
     " / 
-    au BufWrite <buffer> %s/\v\/\ze\S/\/ /ge
-    au BufWrite <buffer> %s/\v\S\zs\// \//ge
+    " TODO: How to do this without screwing file paths?
+    "au BufWrite <buffer> %s/\v\/\ze\S/\/ /ge
+    "au BufWrite <buffer> %s/\v\S\zs\// \//ge
 
     " Restore comments
     au BufWrite <buffer> call SCRestorePad('\/\s\*', '\/\*')
