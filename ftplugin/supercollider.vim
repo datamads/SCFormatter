@@ -10,18 +10,18 @@
 " make sure there's a space between the end of a word and the char sign on assignment
 fun! SCPadPreChar(char)
     " au BufWritePre <buffer> silent! %s/\v\S\zs\=/ =/gg
-    execute '%s/\v\S\zs\' . a:char . '/ ' . a:char . '/ge'
+    silent execute '%s/\v\S\zs\' . a:char . '/ ' . a:char . '/ge'
 endfun
 
 " make sure there's a space between the beginning of a word following the char sign on assignment
 fun! SCPadPostChar(char)
     " au BufWritePre <buffer> silent! %s/\v\=\ze\S/= /gg
-    execute '%s/\v\' . a:char . '\ze\S/' . a:char . ' /ge'
+    silent execute '%s/\v\' . a:char . '\ze\S/' . a:char . ' /ge'
 endfun
 
 " Useful when the padding function makes unnecessary padding
 fun! SCRestorePad(from, to)
-    execute '%s/\v' . a:from . '/' . a:to . '/ge'
+    silent execute '%s/\v' . a:from . '/' . a:to . '/ge'
 endfun
 
 augroup sc
@@ -61,6 +61,12 @@ augroup sc
     " %
     au BufWritePre <buffer> call SCPadPreChar('%')
     au BufWritePre <buffer> call SCPadPostChar('%')
+
+    " [
+    au BufWritePre <buffer> call SCPadPostChar('[')
+    
+    " ]
+    au BufWritePre <buffer> call SCPadPreChar(']')
 
     " *
     au BufWritePre <buffer> call SCPadPreChar('*')
@@ -148,6 +154,8 @@ augroup sc
     "-----------
     " OTHER FORMATTING
     "-----------
+    " Delete spacing between { and | in func args
+    au BufWritePre <buffer> %s/\v\{\s\|/{|/ge
 
     " If anything comes after ; move it to a new line
     au BufWritePre <buffer> %s/\v;\ze\S/;\r/ge
