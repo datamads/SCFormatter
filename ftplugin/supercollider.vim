@@ -9,23 +9,20 @@
 
 " make sure there's a space between the end of a word and the char sign on assignment
 fun! SCPadPreChar(char)
-    " au BufWrite <buffer> silent! %s/\v\S\zs\=/ =/gg
-    silent! '%s/\v\S\zs\' . a:char . '/ ' . a:char . '/ge'
+    " au BufWritePre <buffer> silent! %s/\v\S\zs\=/ =/gg
+    execute '%s/\v\S\zs\' . a:char . '/ ' . a:char . '/ge'
 endfun
 
 " make sure there's a space between the beginning of a word following the char sign on assignment
 fun! SCPadPostChar(char)
-    " au BufWrite <buffer> silent! %s/\v\=\ze\S/= /gg
-    silent! '%s/\v\' . a:char . '\ze\S/' . a:char . ' /ge'
+    " au BufWritePre <buffer> silent! %s/\v\=\ze\S/= /gg
+    execute '%s/\v\' . a:char . '\ze\S/' . a:char . ' /ge'
 endfun
 
 " Useful when the padding function makes unnecessary padding
 fun! SCRestorePad(from, to)
-    silent! '%s/\v' . a:from . '/' . a:to . '/ge'
+    execute '%s/\v' . a:from . '/' . a:to . '/ge'
 endfun
-
-" SUPERCOLLIDER AUTO FORMATTING
-
 
 augroup sc
     autocmd!
@@ -34,115 +31,115 @@ augroup sc
     "-----------
 
     " =
-    au BufWrite <buffer> call SCPadPreChar('=')
-    au BufWrite <buffer> call SCPadPostChar('=')
+    au BufWritePre <buffer> call SCPadPreChar('=')
+    au BufWritePre <buffer> call SCPadPostChar('=')
 
     " Restore ===
-    au BufWrite <buffer> call SCRestorePad('\=\s\=\s\=', '===')
+    au BufWritePre <buffer> call SCRestorePad('\=\s\=\s\=', '===')
 
     " Restore ==
-    au BufWrite <buffer> call SCRestorePad('\=\s\=', '==')
+    au BufWritePre <buffer> call SCRestorePad('\=\s\=', '==')
 
     " !
-    au BufWrite <buffer> call SCPadPreChar('!')
-    au BufWrite <buffer> call SCPadPostChar('!')
+    au BufWritePre <buffer> call SCPadPreChar('!')
+    au BufWritePre <buffer> call SCPadPostChar('!')
 
     " +
-    au BufWrite <buffer> call SCPadPreChar('+')
-    au BufWrite <buffer> call SCPadPostChar('+')
+    au BufWritePre <buffer> call SCPadPreChar('+')
+    au BufWritePre <buffer> call SCPadPostChar('+')
 
     " Restore +++
-    au BufWrite <buffer> call SCRestorePad('\+\s\+\s\+', '+++')
+    au BufWritePre <buffer> call SCRestorePad('\+\s\+\s\+', '+++')
 
     " Restore ++
-    au BufWrite <buffer> call SCRestorePad('\+\s\+', '++')
+    au BufWritePre <buffer> call SCRestorePad('\+\s\+', '++')
 
     " -
-    au BufWrite <buffer> call SCPadPreChar('-')
-    au BufWrite <buffer> call SCPadPostChar('-')
+    au BufWritePre <buffer> call SCPadPreChar('-')
+    au BufWritePre <buffer> call SCPadPostChar('-')
 
     " %
-    au BufWrite <buffer> call SCPadPreChar('%')
-    au BufWrite <buffer> call SCPadPostChar('%')
+    au BufWritePre <buffer> call SCPadPreChar('%')
+    au BufWritePre <buffer> call SCPadPostChar('%')
 
     " *
-    au BufWrite <buffer> call SCPadPreChar('*')
-    au BufWrite <buffer> call SCPadPostChar('*')
+    au BufWritePre <buffer> call SCPadPreChar('*')
+    au BufWritePre <buffer> call SCPadPostChar('*')
 
     " <
-    au BufWrite <buffer> call SCPadPreChar('<')
-    au BufWrite <buffer> call SCPadPostChar('<')
+    au BufWritePre <buffer> call SCPadPreChar('<')
+    au BufWritePre <buffer> call SCPadPostChar('<')
 
     " Restore <<<* 
-    au BufWrite <buffer> call SCRestorePad('\<\s\<\s\<\s\*', '\<\<\<\*')
+    au BufWritePre <buffer> call SCRestorePad('\<\s\<\s\<\s\*', '\<\<\<\*')
 
     " Restore <<< 
-    au BufWrite <buffer> call SCRestorePad('\<\s\<\s\<', '\<\<\<')
+    au BufWritePre <buffer> call SCRestorePad('\<\s\<\s\<', '\<\<\<')
 
     " Restore <<* 
-    au BufWrite <buffer> call SCRestorePad('\<\s\<\s\*', '\<\<\*')
+    au BufWritePre <buffer> call SCRestorePad('\<\s\<\s\*', '\<\<\*')
 
     " Restore << 
-    au BufWrite <buffer> call SCRestorePad('\<\s\<', '\<\<')
+    au BufWritePre <buffer> call SCRestorePad('\<\s\<', '\<\<')
 
     " Restore <= 
-    au BufWrite <buffer> call SCRestorePad('\<\s\=', '\<\=')
+    au BufWritePre <buffer> call SCRestorePad('\<\s\=', '\<\=')
 
     " >
-    au BufWrite <buffer> call SCPadPreChar('>')
-    au BufWrite <buffer> call SCPadPostChar('>')
+    au BufWritePre <buffer> call SCPadPreChar('>')
+    au BufWritePre <buffer> call SCPadPostChar('>')
 
     " Restore >>
-    au BufWrite <buffer> call SCRestorePad('\>\s\>', '\>\>')
+    au BufWritePre <buffer> call SCRestorePad('\>\s\>', '\>\>')
 
     " Restore >=
-    au BufWrite <buffer> call SCRestorePad('\>\s\=', '\>\=')
+    au BufWritePre <buffer> call SCRestorePad('\>\s\=', '\>\=')
 
     " Restore ==
-    au BufWrite <buffer> call SCRestorePad('\=\s\=', '==')
+    au BufWritePre <buffer> call SCRestorePad('\=\s\=', '==')
 
     " Restore !=
-    au BufWrite <buffer> call SCRestorePad('\!\s\=', '!=')
+    au BufWritePre <buffer> call SCRestorePad('\!\s\=', '!=')
 
     " Restore !==
-    au BufWrite <buffer> call SCRestorePad('\!\s\=\=', '!==')
+    au BufWritePre <buffer> call SCRestorePad('\!\s\=\=', '!==')
 
     " / 
     " TODO: How to do this without screwing file paths?
-    "au BufWrite <buffer> %s/\v\/\ze\S/\/ /ge
-    "au BufWrite <buffer> %s/\v\S\zs\// \//ge
+    "au BufWritePre <buffer> %s/\v\/\ze\S/\/ /ge
+    "au BufWritePre <buffer> %s/\v\S\zs\// \//ge
 
     " Restore comments
-    au BufWrite <buffer> call SCRestorePad('\/\s\*', '\/\*')
-    au BufWrite <buffer> call SCRestorePad('\*\s\/', '\*\/')
-    au BufWrite <buffer> call SCRestorePad('\/\s\/', '\/\/')
+    au BufWritePre <buffer> call SCRestorePad('\/\s\*', '\/\*')
+    au BufWritePre <buffer> call SCRestorePad('\*\s\/', '\*\/')
+    au BufWritePre <buffer> call SCRestorePad('\/\s\/', '\/\/')
 
     " Restore **
-    au BufWrite <buffer> call SCRestorePad('\*\s\*', '\*\*')
+    au BufWritePre <buffer> call SCRestorePad('\*\s\*', '\*\*')
 
     " TODO &&
-    " au BufWrite <buffer> call SCPadPreChar('\&')
-    " au BufWrite <buffer> call SCPadPostChar('\&')
-    " au BufWrite <buffer> call SCRestorePad('\&\s\&', '&&')
+    " au BufWritePre <buffer> call SCPadPreChar('\&')
+    " au BufWritePre <buffer> call SCPadPostChar('\&')
+    " au BufWritePre <buffer> call SCRestorePad('\&\s\&', '&&')
 
     " TODO ||
-    " au BufWrite <buffer> call SCPadPreChar('\|\|')
-    " au BufWrite <buffer> call SCPadPostChar('\|\|')
+    " au BufWritePre <buffer> call SCPadPreChar('\|\|')
+    " au BufWritePre <buffer> call SCPadPostChar('\|\|')
 
     " @
-    au BufWrite <buffer> call SCPadPreChar('@')
-    au BufWrite <buffer> call SCPadPostChar('@')
-    au BufWrite <buffer> call SCRestorePad('\@\s\@', '@@')
+    au BufWritePre <buffer> call SCPadPreChar('@')
+    au BufWritePre <buffer> call SCPadPostChar('@')
+    au BufWritePre <buffer> call SCRestorePad('\@\s\@', '@@')
 
     " ?
-    au BufWrite <buffer> call SCPadPreChar('?')
-    au BufWrite <buffer> call SCPadPostChar('?')
+    au BufWritePre <buffer> call SCPadPreChar('?')
+    au BufWritePre <buffer> call SCPadPostChar('?')
 
     " Restore ??
-    au BufWrite <buffer> call SCRestorePad('\?\s\?', '??')
+    au BufWritePre <buffer> call SCRestorePad('\?\s\?', '??')
 
     " Restore !?
-    au BufWrite <buffer> call SCRestorePad('\!\s\?', '!?')
+    au BufWritePre <buffer> call SCRestorePad('\!\s\?', '!?')
 
     "-----------
     " END PADDING
@@ -153,28 +150,27 @@ augroup sc
     "-----------
 
     " If anything comes after ; move it to a new line
-    au BufWrite <buffer> %s/\v;\ze\S/;\r/ge
+    au BufWritePre <buffer> %s/\v;\ze\S/;\r/ge
 
     " If anything comes after | move it to a new line
-    " au BufWrite <buffer> %s/\v\|\ze\S/\|\r/ge
+    " au BufWritePre <buffer> %s/\v\|\ze\S/\|\r/ge
 
     " Pad after commas
-    au BufWrite <buffer> call SCPadPostChar(',')
+    au BufWritePre <buffer> call SCPadPostChar(',')
 
     " Move all comma dileneated items to newlines
-    "au BufWrite <buffer> %s/\w\zs,\ze./,\r/ge
+    "au BufWritePre <buffer> %s/\s*\[.\{-}]/\=substitute(submatch(0), '\s\+', '\n', 'g')
 
     " Add space after colon
-    au BufWrite <buffer> %s/\v\:\ze\S/: /ge
+    au BufWritePre <buffer> %s/\v\:\ze\S/: /ge
 
     " Move \symbols to seperate lines
-    " au BufWrite <buffer> %s/\v,\S*\zs\\/\r\\/ge
+    " au BufWritePre <buffer> %s/\v,\S*\zs\\/\r\\/ge
 
     " Indent
-    " au BufWrite <buffer> execute "normal gg=G"
+    " au BufWritePre <buffer> execute "normal gg=G"
 
     "-----------
     " OTHER FORMATTING END
     "-----------
 augroup END
-
