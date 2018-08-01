@@ -172,6 +172,9 @@ augroup sc
     " Add space after colon
     au BufWritePre <buffer> %s/\v\:\ze\S/: /ge
 
+    " Restore ://
+    au BufWritePre <buffer> call SCRestorePad('\:\s\/\/', '\:\/\/')
+
     " Move \symbols to seperate lines
     " au BufWritePre <buffer> %s/\v,\S*\zs\\/\r\\/ge
 
